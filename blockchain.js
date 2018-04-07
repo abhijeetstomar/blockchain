@@ -2,6 +2,9 @@
  * Created by Abhijeet Singh on 8 April 2018
  */
 
+// import library for hash function
+const SHA256 = require('crypto-js/sha256');
+
 class Block {
     /* index is optional and tells us where the block sits on the chain
      * timestamp tells us when the block was created
@@ -14,7 +17,16 @@ class Block {
         this.timestamp = timestamp;
         this.data = data;
         this.previousHash = previousHash;
+        // contains the hash of our block
+        this.hash = this.calculateHash();
+    }
 
-        this.hash = '';
+    /* calculate the hash function of this block with the properties of this block
+     * We use the SHA 256 function. It's not available by default in JavaScript.
+     * We can install the library crypto-js with "npm install --save crypto-js"
+     */
+    calculateHash() {
+        // SHA256 returns a hash object which is then converted to string with toString()
+        return SHA256(this.index + this.timestamp + JSON.stringify(this.data)).toString();
     }
 }

@@ -84,6 +84,8 @@ class Blockchain {
          * that in our simple implementation.
          */
         let block = new Block(Date.now(), this.pendingTransactions);
+
+        block.previousHash = this.getLatestBlock().hash;
         block.mineBlock(this.difficulty);
 
         console.log('Block successfully mined!');
@@ -172,3 +174,5 @@ myCoin.minePendingTransactions('abhijeet-address');
 
 // check our balance
 console.log('\nBalance of Abhijeet is', myCoin.getBalanceOfAddress('abhijeet-address'));
+
+console.log('Is the blockchain valid? ' + myCoin.isChainValid());
